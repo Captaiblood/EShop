@@ -12,9 +12,9 @@ namespace Catalog.API.Entities.Data
     {
         public CatalogContext(IConfiguration configuration)
         {
-            var connstring = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
-            var DB = configuration.GetValue<string>("DatabaseSettings:DatabaseName");
-            var collecItem = configuration.GetValue<string>("DatabaseSettings:CollectionName");
+            //var connstring = configuration.GetValue<string>("DatabaseSettings:ConnectionString");
+            //var DB = configuration.GetValue<string>("DatabaseSettings:DatabaseName");
+            //var collecItem = configuration.GetValue<string>("DatabaseSettings:CollectionName");
 
             var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
             

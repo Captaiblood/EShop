@@ -13,7 +13,7 @@ namespace Catalog.API.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
+        [BsonRequired]
         [BsonElement("Name")]
         public string Name { get; set; }
         public string Category { get; set; }
