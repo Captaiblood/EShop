@@ -1,5 +1,6 @@
 ﻿using Catalog.API.Entities;
 using Catalog.API.Entities.Data;
+using Catalog.API.Repository.Contract;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -53,9 +54,18 @@ namespace Catalog.API.Repository
                             .ToListAsync();
         }
 
-        public async Task CreateProduct(Product product)
+        public async Task<bool> CreateProduct(Product product)
         {
             await _context.Products.InsertOneAsync(product);
+            //Mongo DB will return 
+            if (product.Id.Length > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<bool> UpdateProduct(Product product)

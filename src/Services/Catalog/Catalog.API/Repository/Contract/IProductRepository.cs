@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalog.API.Repository
+namespace Catalog.API.Repository.Contract
 {
     public interface IProductRepository
     {
@@ -14,7 +14,7 @@ namespace Catalog.API.Repository
         Task<IEnumerable<Product>> GetProductByName(string name);
         Task<IEnumerable<Product>> GetProductByCategory(string categoryName);
 
-        Task CreateProduct(Product product);
+        Task<bool> CreateProduct(Product product);
         Task<bool> UpdateProduct(Product product);
         Task<bool> DeleteProduct(string id);
     }

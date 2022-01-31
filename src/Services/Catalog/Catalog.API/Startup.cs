@@ -1,5 +1,9 @@
 using Catalog.API.Entities.Data;
+using Catalog.API.Mapper;
 using Catalog.API.Repository;
+using Catalog.API.Repository.Contract;
+using Catalog.API.Services;
+using Catalog.API.Services.Contract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,9 +33,11 @@ namespace Catalog.API
         {
 
             services.AddControllers();
-
+            //Add Automapper
+            services.AddAutoMapper(typeof(ProductMapping));
             services.AddScoped<ICatalogContext, CatalogContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddSwaggerGen(c =>
             {
