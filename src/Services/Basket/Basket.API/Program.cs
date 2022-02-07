@@ -1,3 +1,5 @@
+using Basket.API.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,11 +9,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//inject IDistributedCache
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("RedisCloudAPI");
     options.InstanceName = "eshopBasket";
 });
+
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 var app = builder.Build();
 
