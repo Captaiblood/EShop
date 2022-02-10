@@ -36,11 +36,11 @@ namespace Basket.API.Controllers
         }
 
         [HttpDelete("{userName}", Name = "DeleteBasket")]
-        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteBasket(string userName)
         {
-            await _repository.DeleteBasket(userName);
-            return Ok();
+          var _itemDeleted=  await _repository.DeleteBasket(userName);
+            return Ok(_itemDeleted);
         }
 
        

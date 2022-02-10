@@ -13,9 +13,16 @@ namespace Basket.API.Repository
         {
             _redisCache = cache ?? throw new ArgumentNullException(nameof(cache));
         }
-        public async Task DeleteBasket(string userName)
+        public async Task <bool> DeleteBasket(string userName)
         {
-            await _redisCache.RemoveAsync(userName);
+            var basket = await GetBasket(userName);
+           
+            if (!String.IsNullOrEmpty(basket.UserName))
+            {
+                await _redisCache.RemoveAsync(userName);
+                return true;
+            }
+            else { return false; }
         }
 
         public async Task<ShoppingCart> GetBasket(string userName)
@@ -23,10 +30,10 @@ namespace Basket.API.Repository
             if (userName == null) throw new ArgumentNullException(nameof(userName));
 
             var _basetModel = new ShoppingCart();
-
+           
             var basket = await _redisCache.GetStringAsync(userName);
-
-            if (!String.IsNullOrEmpty(basket))
+           
+            if (String.IsNullOrEmpty(basket))
                 return _basetModel;
             
              var _cart = JsonConvert.DeserializeObject<ShoppingCart>(basket);
@@ -38,10 +45,10 @@ namespace Basket.API.Repository
 
         public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
         {
-            var _basetModel = new ShoppingCart();
+            var _basketModel = new ShoppingCart();
             await _redisCache.SetStringAsync(basket.UserName, JsonConvert.SerializeObject(basket));
            var _userName = basket.UserName;
-            if (String.IsNullOrEmpty(_userName)) { return _basetModel; }
+            if (String.IsNullOrEmpty(_userName)) { return _basketModel; }
             return await GetBasket(_userName);
         }
     }
