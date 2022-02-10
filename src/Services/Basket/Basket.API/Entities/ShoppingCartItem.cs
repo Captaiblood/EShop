@@ -5,7 +5,7 @@
         public int Quantity { get; set; } = 0;
         public int Price { get; set; } = 0;
         public string Colour { get; set; }= String.Empty;
-        public int ProductId { get; set; } = 0;
+        public string ProductId { get; set; } = String.Empty;
         public string ProductName { get; set; } = String.Empty;
 
     }

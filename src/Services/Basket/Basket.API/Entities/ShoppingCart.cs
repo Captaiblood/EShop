@@ -23,7 +23,7 @@
                 decimal totalPrice = 0;
                 foreach (var item in shopingCartItems)
                 {
-                    totalPrice = totalPrice * item.Price;
+                    totalPrice = totalPrice + item.Price;
                 }
                 return totalPrice;
 
