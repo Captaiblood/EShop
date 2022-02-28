@@ -29,18 +29,18 @@ namespace Basket.API.Repository
         {
             if (userName == null) throw new ArgumentNullException(nameof(userName));
 
-            var _basetModel = new ShoppingCart();
+            var _basketModel = new ShoppingCart();
            
             var basket = await _redisCache.GetStringAsync(userName);
            
             if (String.IsNullOrEmpty(basket))
-                return _basetModel;
+                return _basketModel;
             
              var _cart = JsonConvert.DeserializeObject<ShoppingCart>(basket);
 
             if (_cart is not null) { return _cart; }
 
-            return _basetModel;
+            return _basketModel;
         }
 
         public async Task<ShoppingCart> UpdateBasket(ShoppingCart basket)
